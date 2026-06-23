@@ -4,16 +4,16 @@ namespace PlaywrightFundamentalsLab.Tests.Pages;
 
 public class PlaywrightHomePage(IPage page)
 {
-    private readonly IPage _page = page;
     private const string Url = "https://playwright.dev/dotnet";
+    
+    // Locators - defined as properties using role-based and user-facing strategies
+    public ILocator GetStartedLink => 
+        page.GetByRole(AriaRole.Link, new PageGetByRoleOptions { Name = "Get started" });
+    
+    public ILocator HeroHeading =>
+        page.GetByRole(AriaRole.Heading, new PageGetByRoleOptions { Name = "Playwright enables reliable" });
+    
+    public ILocator SearchButton => page.GetByLabel("Search");
 
-    public async Task GotoAsync() => await _page.GotoAsync(Url);
-
-    public async Task<string?> GetTitleAsync() => await _page.TitleAsync();
-
-    public async Task ClickGetStartedAsync() =>
-        await _page.GetByRole(AriaRole.Link, new PageGetByRoleOptions { Name = "Get started" }).ClickAsync();
-
-    public async Task<bool> IsGetStartedLinkVisibleAsync() =>
-        await _page.GetByRole(AriaRole.Link, new PageGetByRoleOptions { Name = "Get started" }).IsVisibleAsync();
+    public async Task GotoAsync() => await page.GotoAsync(Url);
 }
