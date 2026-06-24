@@ -1,11 +1,10 @@
 ﻿using Microsoft.Playwright;
+using PlaywrightFundamentalsLab.Tests.Configuration;
 
 namespace PlaywrightFundamentalsLab.Tests.Pages;
 
 public class PlaywrightHomePage(IPage page)
 {
-    private const string Url = "https://playwright.dev/dotnet";
-
     // Locators - defined as properties using role-based and user-facing strategies
     public ILocator GetStartedLink =>
         page.GetByRole(AriaRole.Link, new PageGetByRoleOptions { Name = "Get started" });
@@ -15,7 +14,7 @@ public class PlaywrightHomePage(IPage page)
 
     public ILocator SearchButton => page.GetByLabel("Search");
 
-    public async Task GotoAsync() => await page.GotoAsync(Url);
+    public async Task GotoAsync() => await page.GotoAsync(TestConfiguration.BaseUrl);
 
     public async Task ClickGetStartedAsync() => await GetStartedLink.ClickAsync();
 }
