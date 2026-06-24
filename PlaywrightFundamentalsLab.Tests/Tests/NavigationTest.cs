@@ -1,4 +1,5 @@
 ﻿using System.Text.RegularExpressions;
+using PlaywrightFundamentalsLab.Tests.Configuration;
 using PlaywrightFundamentalsLab.Tests.Pages;
 
 namespace PlaywrightFundamentalsLab.Tests.Tests;
@@ -28,6 +29,6 @@ public class NavigationTest : BaseTest
     public async Task ShouldHaveCorrectUrlAfterLoad()
     {
         await _homePage.GotoAsync();
-        await Expect(Page).ToHaveURLAsync("https://playwright.dev/dotnet/");
+        await Expect(Page).ToHaveURLAsync(TestConfiguration.BaseUrl);
     }
 }
