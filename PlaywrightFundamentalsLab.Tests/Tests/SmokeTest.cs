@@ -1,48 +1,18 @@
 ﻿using System.Text.RegularExpressions;
-using Microsoft.Playwright;
-using Microsoft.Playwright.NUnit;
-using NUnit.Framework.Interfaces;
 using PlaywrightFundamentalsLab.Tests.Pages;
 
 namespace PlaywrightFundamentalsLab.Tests.Tests;
 
 [TestFixture]
-public class SmokeTest : PageTest
+[Category("Smoke")]
+public class SmokeTest : BaseTest
 {
     private PlaywrightHomePage _homePage = null!;
 
     [SetUp]
-    public async Task Setup()
+    public void Setup()
     {
-        await Context.Tracing.StartAsync(new TracingStartOptions
-        {
-            Screenshots = true,
-            Snapshots = true,
-            Sources = true
-        });
-
         _homePage = new PlaywrightHomePage(Page);
-    }
-
-    [TearDown]
-    public async Task TearDown()
-    {
-        var testFailed = TestContext.CurrentContext.Result.Outcome.Status
-                         == TestStatus.Failed;
-
-        if (testFailed)
-        {
-            var tracePath = Path.Combine(
-                TestContext.CurrentContext.WorkDirectory,
-                "playwright-traces",
-                $"{TestContext.CurrentContext.Test.Name}.zip");
-
-            await Context.Tracing.StopAsync(new TracingStopOptions { Path = tracePath });
-        }
-        else
-        {
-            await  Context.Tracing.StopAsync(new TracingStopOptions());
-        }
     }
 
     [Test]
