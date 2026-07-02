@@ -30,3 +30,10 @@ jobs:
         
       - name: Run tests
         run:  dotnet test --no-build
+        
+      - name: Upload trace artifacts on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with: 
+          name: playwright-traces
+          path: PlaywrightFundamentalsLab.Tests/bin/Debug/net10.0/playwright-traces/
